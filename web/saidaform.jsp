@@ -9,7 +9,42 @@
             return;
         }
         
+        int numero = Integer.parseInt(request.getParameter("vaga"));
+        String dataHoraFormatada = "";
+        String dataHora = "";
+        String placa = "";
+        
+        try {
+        
+            Connection conecta;
+            PreparedStatement st;
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String url = "jdbc:mysql://localhost:3306/sistema";
+            String user = "root";
+            String password = "admin";
+            conecta = DriverManager.getConnection(url, user, password);
+            
+            String sql = "SELECT * FROM veiculos WHERE id_vaga = ?";
+            st = conecta.prepareStatement(sql);
+            st.setInt(1, numero);
+            ResultSet rs = st.executeQuery();
+            
+            if(rs.next()){
+            
+                placa = rs.getString("placa");
+                dataHora = rs.getString("data_hora_entrada");
+                dataHoraFormatada = dataHora.replace("T", " ") + ":00";
+                
+            }
+            
+            
+        
+        }catch (Exception x) {
+            out.print("Mensagem de Erro: " + x.getMessage());
+        }
+        
 
+     
         
         
      %>
@@ -27,7 +62,7 @@
             <a href="menu.jsp"><h1>Estacionamento!</h1></a>
             <nav style="display: flex; gap: 40px;">
                 <a href="formulario.jsp">Entrada de Carros</a>
-                <a href="saidaform.jsp">Saida de Carros</a>
+                <a href="#">Saida de Carros</a>
                 <a href="mapa.jsp">Mapa em tempo real</a>
                 <a href="#">Gerar Relatorio</a>
                 <a href="configuracao.jsp">Configurações</a>
@@ -37,10 +72,14 @@
         </header>
         
         <main style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 50vh;">
-            <form action="action" style="align-items: center; display: flex; flex-direction: column">
+            <h1><%=placa%></h1>
+            <form action="saida.jsp" style="align-items: center; display: flex; flex-direction: column">
                 <h1>Saida de Veiculos</h1>
-                <input type="text" name="placa" placeholder="Digite a placa" required>
-                <input type="datetime-local" name="data_hora_saida" placeholder="horario de saida" min="" required>
+                <label>Horario de Saida</label>
+                <input hidden value="<%=placa%>" name="placa">
+                <input hidden value="<%=numero%>" name="numero">
+                <input type="datetime-local" name="data_hora_saida" placeholder="horario de saida" min="<%=dataHora%>" required>
+                <input value="Entrar" type="submit">
                 
             </form>
 

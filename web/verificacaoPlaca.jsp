@@ -24,12 +24,13 @@
             Matcher matcher = pattern.matcher(placa);
 
             if (matcher.matches()) {
-                String sql = "INSERT INTO veiculos(placa, data_hora_entrada, valor_pago, status_veiculo) VALUES (?,?, ?, ?)";
+                String sql = "INSERT INTO veiculos(placa, data_hora_entrada, valor_pago, status_veiculo, id_vaga) VALUES (?, ?, ?, ?, ?)";
                 st = conecta.prepareStatement(sql);
                 st.setString(1, placa);
                 st.setString(2, dataHoraFormatada);
                 st.setDouble(3, 0);
                 st.setString(4, "estacionado");
+                st.setInt(5, numero);
                 st.executeUpdate();
 
                 sql = "UPDATE vagas SET status_vagas = ? WHERE numero = ?";
