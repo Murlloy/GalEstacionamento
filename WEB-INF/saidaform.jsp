@@ -73,13 +73,16 @@
         
         <main style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 50vh;">
             <h1><%=placa%></h1>
-            <form action="saida.jsp" style="align-items: center; display: flex; flex-direction: column">
+            <form action="entresaida.jsp" style="align-items: center; display: flex; flex-direction: column">
                 <h1>Saida de Veiculos</h1>
-                <label>Horario de Saida</label>
+                
                 <input hidden value="<%=placa%>" name="placa">
                 <input hidden value="<%=numero%>" name="numero">
+                <label>Horario de Entrada</label>
+                <p><%=dataHora%></p>
+                <label>Horario de Saida</label>
                 <input type="datetime-local" name="data_hora_saida" placeholder="horario de saida" min="<%=dataHora%>" required>
-                <input value="Entrar" type="submit">
+                <input value="Sair" type="submit">
                 
             </form>
 

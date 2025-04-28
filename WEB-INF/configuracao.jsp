@@ -29,14 +29,14 @@
                 <a href="#">Saida de Carros</a>
                 <a href="mapa.jsp">Mapa em tempo real</a>
                 <a href="#">Gerar Relatorio</a>
-                <a href="configuracao.jsp">ConfiguraÃ§Ãµes</a>
+                <a href="configuracao.jsp">Configurações</a>
             </nav>
                 <a href="logout.jsp">Logout</a>
             </article>
         </header>
         <main style="display: flex; justify-content: center; height: 50vh; align-items: center; padding: 80px">
             <form action="configurar.jsp" method="post" style="display: flex; width: 20%; min-width: 450px; flex-direction: column; align-items: center; justify-items: center; gap: 40px; border: 1px solid black; padding: 40px 20px;">
-                <h1>ConfiguraÃ§Ãµes</h1> 
+                <h1>Configurações</h1> 
                 <p style="display: flex; flex-direction: column; width: 100%; gap: 20px;">
                     <label>Valor Primeira Hora</label>
                     <input style="height: 40px; padding-left: 10px; border-radius: 5px; outline:none;"  placeholder="Valor Primeira Hora" required name="valor_primeira_hora">
