@@ -11,6 +11,7 @@
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styleForm.css"/>
     </head>
     <body>
         
@@ -24,7 +25,7 @@
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = "jdbc:mysql://localhost:3306/sistema";
                 String user = "root";
-                String password = "admin";
+                String password = "root";
                 conecta = DriverManager.getConnection(url, user, password);
                 //Listar os dados da tabela produto do banco de dados
                 String sql = ("SELECT numero FROM vagas WHERE status_vagas = 'disponivel'  ");
@@ -37,7 +38,7 @@
                 
                  
                 String mensagem = "";
-                 boolean sucesso = false;
+                boolean sucesso = false;
 
                 // Verifica se o formulário foi enviado
                 if (request.getMethod().equalsIgnoreCase("POST")) {
@@ -81,9 +82,23 @@
 
 
         %>
+        
+         <header>
+            <article>
+                <div><a href="menu.jsp"><img src="Marilyllo.png" alt="alt"/></a></div>
+                <nav>
+                    <a href="formulario.jsp">Entrada</a>
+                    <a href="#">Saida</a>
+                    <a href="mapa.jsp">Mapa</a>
+                    <a href="#">Relatorio</a>
+                    <a href="configuracao.jsp">Configurações</a>
+                </nav>
+                <a href="logout.jsp">Logout</a>
+            </article>
+        </header>
 
         <form action="" method="post">
-            <input type="text" name="placa">
+            <input type="text" name="placa" placeholder="Placa">
             <input type="datetime-local" name="data_hora_entrada" required>
             <select name="numero" id="id" required>
                 <option value="first">Vagas</option>

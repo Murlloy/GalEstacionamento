@@ -4,9 +4,6 @@
 
     String dataHora = request.getParameter("data_hora_saida");
     String dataHoraFormatada = dataHora.replace("T", " ") + ":00";
-    Double valor_pago = Double.parseDouble(request.getParameter("valor_pago"));
-    String forma_pagamento = request.getParameter("pagamento");
-    
     int numero = Integer.parseInt(request.getParameter("numero"));
     
     String usuarioLogado = (String) session.getAttribute("usuario");
@@ -22,7 +19,7 @@
     try {
     
         Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/sistema", "root", "admin");
+        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/sistema", "root", "root");
 
         String sql = "SELECT * FROM usuario WHERE login = ?";
         PreparedStatement st = conn.prepareStatement(sql);
@@ -57,13 +54,11 @@
         st.setInt(2, numero);
         st.executeUpdate();
         
-        sql = "UPDATE veiculos SET status_veiculo = ?, data_hora_saida = ?, valor_pago = ?, forma_pagamento = ? WHERE placa = ?";
+        sql = "UPDATE veiculos SET status_veiculo = ?, data_hora_saida = ? WHERE placa = ?";
         st = conn.prepareStatement(sql);
         st.setString(1, "retirado");
         st.setString(2, dataHoraFormatada);
-        st.setDouble(3, valor_pago);
-        st.setString(4, forma_pagamento);
-        st.setString(5, placa);
+        st.setString(3, placa);
         st.executeUpdate();
         
         response.sendRedirect("mapa.jsp");

@@ -2,29 +2,27 @@
 
 
 
- <%
-    
-        String usuarioLogado = (String) session.getAttribute("usuario");
-        
-        if(usuarioLogado == null){
-            response.sendRedirect("index.html");
-            return;
-        }
-        
-   
+<%
 
-                Connection conn = null;
-                PreparedStatement st = null;
-                ResultSet rs = null;
+    String usuarioLogado = (String) session.getAttribute("usuario");
 
-               try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/sistema", "root", "admin");
+    if (usuarioLogado == null) {
+        response.sendRedirect("index.html");
+        return;
+    }
 
-                String sql = "SELECT * FROM vagas";
-                st = conn.prepareStatement(sql);
-                rs = st.executeQuery();
-                        
+    Connection conn = null;
+    PreparedStatement st = null;
+    ResultSet rs = null;
+
+    try {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/sistema", "root", "root");
+
+        String sql = "SELECT * FROM vagas";
+        st = conn.prepareStatement(sql);
+        rs = st.executeQuery();
+
 %>
 
 
@@ -36,66 +34,67 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link rel="stylesheet" href="styleMapa.css"/>
     </head>
     <body>
-        <header style="display: flex; align-items: center; justify-content: space-between; padding: 0px 140px;">
-            <a href="reset.jsp" style="padding: 20px; background-color:#cccccc; border: 1px solid black; ">Resetar Estacionamento.</a>
-            <article style="display: flex; flex-direction: column; align-items: center; gap: 30px;">
-                <a href="menu.jsp"><h1>Estacionamento!</h1></a>
-            <nav style="display: flex; gap: 40px;">
-                <a href="formulario.jsp">Entrada de Carros</a>
-                <a href="#">Saida de Carros</a>
-                <a href="mapa.jsp">Mapa em tempo real</a>
-                <a href="#">Gerar Relatorio</a>
-                <a href="configuracao.jsp">Configurações</a>
-            </nav>
+        <header>
+            <a class="reset" href="reset.jsp">Resetar Estacionamento.</a>
+            <article>
+                <div><a href="menu.jsp"><img src="Marilyllo.png" alt="logo estacionamento"/></a></div>
+                <nav>
+                    <a href="formulario.jsp">Entrada</a>
+                    <a href="#">Saída</a>
+                    <a href="mapa.jsp">Mapa</a>
+                    <a href="#">Relatório</a>
+                    <a href="configuracao.jsp">Configurações</a>
+                </nav>
                 <a href="logout.jsp">Logout</a>
             </article>
-            <a href="reset.jsp" style="padding: 20px; background-color:#cccccc; border: 1px solid black; ">Resetar Estacionamento.</a>
+            <a class="reset" href="reset.jsp">Resetar Estacionamento.</a>
         </header>
-    <main style="display: flex; justify-content: center; flex-wrap: wrap; gap: 50px; padding: 50px 70px">
-        <%
-        while(rs.next()) {
-            if(rs.getString("status_vagas").equals("disponivel")) {
-        %>
-        <form action="cinema.jsp" method="post">
-            
-                    <input type="hidden" name="vaga" value="<%=rs.getString("numero") %>">
-                    <button type="submit" style="background-color: green; cursor: pointer; width: 100px; height: 100px; display: flex; justify-content: center; flex-direction: column; align-items: center; border: 1px solid white; color: white;">
-                        <p>Vaga <%=rs.getString("numero")%></p>
-                        <p>Disponível!</p>
-                    </button>
-       
-        </form>                
-        <%
-            } else {
-        %>
         
-        <form action="saidaform.jsp" method="post">
-            
-                    <input type="hidden" name="vaga" value="<%=rs.getString("numero") %>">
-                    <button type="submit" style="background-color: red; cursor: pointer; width: 100px; height: 100px; display: flex; justify-content: center; flex-direction: column; align-items: center; border: 1px solid white; color: white;">
-                        <p>Vaga <%=rs.getString("numero")%></p>
-                        <p>Ocupada!</p>
-                    </button>
-       
-        </form>  
-        <%
-            } // fim do else
-        } // fim do while
-        %>
-    </main>
-</body>
+        
+        
+        <main style="display: flex; justify-content: center; flex-wrap: wrap; gap: 50px; padding: 50px 70px">
+            <%            while (rs.next()) {
+                    if (rs.getString("status_vagas").equals("disponivel")) {
+            %>
+            <form action="cinema.jsp" method="post">
 
-    
+                <input type="hidden" name="vaga" value="<%=rs.getString("numero")%>">
+                <button type="submit" style="background-color: #065732; cursor: pointer; width: 100px; height: 100px; display: flex; justify-content: center; flex-direction: column; align-items: center; border: 1px solid white; color: white;">
+                    <p>Vaga <%=rs.getString("numero")%></p>
+                    <p>Disponível!</p>
+                </button>
+
+            </form>                
+            <%
+            } else {
+            %>
+
+            <form action="saidaform.jsp" method="post">
+
+                <input type="hidden" name="vaga" value="<%=rs.getString("numero")%>">
+                <button type="submit" style="background-color: #830018; cursor: pointer; width: 100px; height: 100px; display: flex; justify-content: center; flex-direction: column; align-items: center; border: 1px solid white; color: white;">
+                    <p>Vaga <%=rs.getString("numero")%></p>
+                    <p>Ocupada!</p>
+                </button>
+
+            </form>  
+            <%
+                    } // fim do else
+                } // fim do while
+            %>
+        </main>
+    </body>
+
+
     <%
-    
-    // fim do else
+            // fim do else
+            conn.close();
+        } catch (Exception e) {
+            out.println("<p>Erro ao listar produtos: " + e.getMessage() + "</p>");
+        }
 
-                    conn.close();
-                    } catch (Exception e) {
-                        out.println("<p>Erro ao listar produtos: " + e.getMessage() + "</p>");
-                    }
-    
     %>
 </html>

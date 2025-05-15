@@ -22,7 +22,7 @@
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = "jdbc:mysql://localhost:3306/sistema";
                 String user = "root";
-                String password = "admin";
+                String password = "root";
 
                 conecta = DriverManager.getConnection(url, user, password);
                 String sql = ("SELECT * FROM usuario WHERE login = ? AND senha = ?");
@@ -42,4 +42,3 @@
         %>
     </body>
 </html>
-
