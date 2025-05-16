@@ -26,8 +26,9 @@
                     <a href="formulario.jsp">Entrada</a>
                     <a href="#">Saida</a>
                     <a href="mapa.jsp">Mapa</a>
-                    <a href="#">Relatorio</a>
+                    <a href="relatorio.jsp">Relatorio</a>
                     <a href="configuracao.jsp">Configurações</a>
+                    <a href="adicionar.jsp">Adicionar Operador</a>
                 </nav>
                 <a href="logout.jsp">Logout</a>
             </article>

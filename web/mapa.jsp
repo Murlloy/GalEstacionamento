@@ -17,7 +17,7 @@
 
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
-        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/sistema", "root", "root");
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/sistema", "root", "admin");
 
         String sql = "SELECT * FROM vagas";
         st = conn.prepareStatement(sql);
@@ -45,7 +45,7 @@
                     <a href="formulario.jsp">Entrada</a>
                     <a href="#">Saída</a>
                     <a href="mapa.jsp">Mapa</a>
-                    <a href="#">Relatório</a>
+                    <a href="relatorio.jsp">Relatório</a>
                     <a href="configuracao.jsp">Configurações</a>
                 </nav>
                 <a href="logout.jsp">Logout</a>

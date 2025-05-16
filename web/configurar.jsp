@@ -8,7 +8,7 @@
     Class.forName("com.mysql.cj.jdbc.Driver");
     String url = "jdbc:mysql://localhost:3306/sistema";
     String user = "root";
-    String password = "root";
+    String password = "admin";
     conecta = DriverManager.getConnection(url, user, password);
     
     
