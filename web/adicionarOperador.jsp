@@ -18,7 +18,7 @@
         ResultSet rs = st.executeQuery();
         
         if(rs.next()){
-            out.print("Já existe um usuario com este login!!");
+            out.print("JÃ¡ existe um usuario com este login!!");
             %> 
             <a href="adicionar.jsp">Voltar</a>
 <% 
